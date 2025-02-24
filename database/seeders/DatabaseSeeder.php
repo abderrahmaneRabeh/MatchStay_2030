@@ -1,6 +1,9 @@
 <?php
-
 namespace Database\Seeders;
+
+use App\Models\Admin;
+use App\Models\Proprietaire;
+use App\Models\Touriste;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,5 +21,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Admin::factory()->create(['email' => 'admin@example.com']);
+        Proprietaire::factory()->create(['email' => 'owner@example.com']);
+        Touriste::factory()->create(['email' => 'tourist@example.com']);
     }
 }
