@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/Announces/{pagination?}', [AnnounceController::class, 'index'])->name('Announces');
+    Route::get('/Announces/details/{id}', [AnnounceController::class, 'details'])->name('AnnounceDetails');
 
 });
 

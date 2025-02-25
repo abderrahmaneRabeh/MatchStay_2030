@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayMorocco - Luxury Rental Listings</title>
+    <title>StayMorocco - Property Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -38,7 +38,7 @@
     </style>
 </head>
 
-<body class="font-sans bg-gray-50 text-dark" x-data="{ mobileMenu: false, filters: false }">
+<body class="font-sans bg-gray-50 text-dark" x-data="{ mobileMenu: false }">
     <!-- Header -->
     <header class="fixed z-50 w-full transition-all duration-300" x-data="{ isScrolled: false }" @scroll.window="isScrolled = (window.pageYOffset > 20)">
         <nav :class="{'glass-effect': !isScrolled, 'bg-white shadow-md': isScrolled}" class="container px-6 py-4 mx-auto transition-all duration-300">
@@ -73,112 +73,85 @@
         </nav>
     </header>
 
-    <!-- Page Title Banner -->
-    <section class="relative pt-32 pb-12 bg-gradient-to-r from-primary to-secondary">
+    <!-- Property Details Section -->
+    <section class="pt-32 pb-12 bg-gradient-to-r from-primary to-secondary">
         <div class="container px-6 mx-auto">
             <div class="max-w-3xl text-white">
-                <h1 class="mb-4 text-4xl font-bold">Luxury Rentals for World Cup 2030</h1>
-                <p class="text-lg opacity-90">Find your perfect accommodation in Morocco's most vibrant cities.</p>
+                <h1 class="mb-4 text-4xl font-bold">{{ $annonce->titre }}</h1>
+                <p class="text-lg opacity-90">{{ $annonce->localisation }}</p>
             </div>
-        </div>
-        <div class="absolute bottom-0 right-0 hidden xl:block">
-            <svg class="w-64 h-64 text-white opacity-10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-            </svg>
         </div>
     </section>
 
-    <!-- Search & Filters -->
-    <section class="relative z-30 px-6 py-8 mx-auto -mt-6 max-w-7xl">
-        <div class="p-6 bg-white shadow-xl rounded-xl">
-            <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                <form action="/Announces" method="GET" class="flex flex-col w-full md:flex-row md:space-x-4">
-                    <div class="relative flex-grow">
-                        <input type="text" name="search" placeholder="Search by property name or keyword" class="w-full p-3 pl-10 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <svg class="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+    <!-- Property Images & Details -->
+    <section class="container px-6 py-12 mx-auto">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <!-- Property Images -->
+            <div class="space-y-4">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-96">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="overflow-hidden rounded-lg">
+                        <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-32">
                     </div>
-                    <button type="submit" class="flex items-center px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
-                        Search
-                    </button>
-                    <a href="/Announces" class="flex items-center px-4 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-primary">
-                            reset
-                </a>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Results Count & Sort -->
-    <section class="container px-6 py-6 mx-auto">
-        <div class="flex flex-col items-center justify-between mb-6 md:flex-row">
-            <p class="mb-4 font-medium md:mb-0"><span class="font-bold text-primary">145</span> properties found</p>
-            <div class="flex items-center space-x-4">
-                <label class="text-sm">Annonce per page:</label>
-                <select name="paginate" id="paginate" onchange="window.location.href=`/Announces/${this.value}`">
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="12">12</option>
-                </select>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Property Listings -->
-    <section class="container px-6 pb-16 mx-auto">
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($Announces as $announce)
-            <!-- Card 1 -->
-            <div class="overflow-hidden transition duration-300 bg-white shadow-sm rounded-xl hover:shadow-lg">
-                <div class="relative">
-                    <img src="{{ $announce->image_url }}">
-                    <div class="absolute top-3 right-3">
-                        <span class="px-2 py-1 text-xs font-medium text-white rounded-md bg-primary">{{ $announce->proprietaire->name }}</span>
-                    </div>
-                    <div class="absolute top-3 left-3">
-                        <span class="px-2 py-1 text-xs font-medium text-white rounded-md bg-dark">Ville</span>
+                    <div class="overflow-hidden rounded-lg">
+                        <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-32">
                     </div>
                 </div>
-                <div class="p-4">
-                    <div class="flex items-center mb-2 text-xs text-gray-500">
-                        <svg class="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                        </svg>
-                        {{ $announce->localisation }}
-                    </div>
-                    <h3 class="mb-2 text-lg font-semibold">{{ $announce->titre }}</h3>
-                    <p class="mb-4 text-sm text-gray-600 line-clamp-2">{{ Str::limit($announce->description, 40) }}</p>
-                    <div class="flex mb-4 text-xs text-gray-500">
-                        <?php $equipements = array_filter(explode('@', $announce->equipements)); ?>
-                        @foreach ($equipements as $equipement)
-                        <div class="flex items-center mr-4">
-                            <svg class="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 3a1 1 0 00-1 1v12a1 1 0 002 0V4a1 1 0 00-1-1zM13 3a1 1 0 00-1 1v12a1 1 0 002 0V4a1 1 0 00-1-1z"></path>
-                                <path d="M3 7a1 1 0 00-1 1v8a1 1 0 002 0V8a1 1 0 00-1-1zM17 7a1 1 0 00-1 1v8a1 1 0 002 0V8a1 1 0 00-1-1z"></path>
+            </div>
+
+            <!-- Property Details -->
+            <div class="space-y-6">
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h2 class="mb-4 text-2xl font-semibold">Property Details</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                             </svg>
-                            <span>{{ $equipement }}</span>
+                            <span class="text-gray-600">{{ $annonce->titre }}</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-gray-600">{{ $annonce->localisation }}</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-gray-600">Available to {{ $annonce->disponibilites }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Description -->
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h2 class="mb-4 text-2xl font-semibold">Description</h2>
+                    <p class="text-gray-600">{{ $annonce->description }}</p>
+                </div>
+
+                <!-- Property Amenities -->
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h2 class="mb-4 text-2xl font-semibold">Amenities</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <?php $equipements = array_filter(explode('@', $annonce->equipements)); ?>
+                        @foreach ($equipements as $equipement)
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-600">{{ $equipement }}</span>
                         </div>
                         @endforeach
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span class="font-semibold text-primary">${{ $announce->prix }}<span class="text-sm text-gray-500">/night</span></span>
-                        <a href="/Announces/details/{{ $announce->id }}" class="px-3 py-1 text-xs font-medium text-white transition duration-300 rounded-lg bg-secondary hover:bg-opacity-90">View Details</a>
-                    </div>
                 </div>
             </div>
-            @endforeach
         </div>
     </section>
-
-    <!-- Pagination -->
-    <section class="container px-6 py-6 mx-auto">
-        <div class="flex justify-center">
-            {{ $Announces->links('vendor.pagination.tailwind') }}
-        </div>
-    </section>
-
 
     <!-- Footer Section -->
     <footer class="py-12 bg-gray-100">
@@ -195,3 +168,6 @@
             <p class="mt-6 text-center text-gray-600">Copyright &copy; 2025 Morocco Property. All rights reserved.</p>
         </div>
     </footer>
+</body>
+
+</html>

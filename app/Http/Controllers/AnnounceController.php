@@ -30,4 +30,13 @@ class AnnounceController extends Controller
             'Announces' => $announces
         ]);
     }
+
+    public function details($id)
+    {
+        $annonce = Annonce::with('proprietaire')->find($id);
+
+        return view('AnnounceDetails', [
+            'annonce' => $annonce
+        ]);
+    }
 }
