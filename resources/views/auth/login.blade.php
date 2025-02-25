@@ -143,7 +143,7 @@
                         <a href="{{ route('register') }}" class="ml-1 text-sm font-medium text-morocco-green hover:underline">Sign up</a>
                     </div>
 
-                    <div class="relative flex items-center justify-center mt-6">
+                    <!-- <div class="relative flex items-center justify-center mt-6">
                         <div class="absolute w-full border-t border-gray-300"></div>
                         <div class="relative px-4 text-sm text-gray-500 bg-gray-50">Or continue with</div>
                     </div>
@@ -158,7 +158,7 @@
                         <button type="button" class="flex items-center justify-center px-4 py-2 transition-colors duration-200 border border-gray-300 rounded-lg hover:bg-gray-50">
                             <i class="text-gray-800 fab fa-apple"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

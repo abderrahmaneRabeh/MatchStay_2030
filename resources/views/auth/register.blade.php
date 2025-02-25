@@ -93,6 +93,21 @@
                     </div>
                     <div class="text-sm text-red-500"></div>
 
+
+                    <!-- Account Type Selection -->
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fa fa-user-tag text-morocco-green"></i>
+                        </div>
+                        <select id="account_type" name="account_type" required class="w-full px-4 py-3 pl-10 transition duration-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-morocco-green focus:border-transparent">
+                            <option value="" disabled selected>Select Account Type</option>
+                            <option value="touriste">touriste</option>
+                            <option value="proprietaire">proprietaire</option>
+                        </select>
+                    </div>
+                    <div class="text-sm text-red-500"></div>
+
+
                     <!-- Password -->
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -185,7 +200,7 @@
                         <a href="{{ route('login') }}" class="ml-1 text-sm font-medium text-morocco-green hover:underline">Sign in</a>
                     </div>
 
-                    <div class="relative flex items-center justify-center mt-6">
+                    <!-- <div class="relative flex items-center justify-center mt-6">
                         <div class="absolute w-full border-t border-gray-300"></div>
                         <div class="relative px-4 text-sm text-gray-500 bg-gray-50">Or register with</div>
                     </div>
@@ -200,7 +215,7 @@
                         <button type="button" class="flex items-center justify-center px-4 py-2 transition-colors duration-200 border border-gray-300 rounded-lg hover:bg-gray-50">
                             <i class="text-gray-800 fab fa-apple"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>
