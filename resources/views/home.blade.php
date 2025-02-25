@@ -73,9 +73,6 @@
             </div>
             <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="p-6 mt-4 space-y-4 bg-white rounded-lg shadow-lg md:hidden">
                 <a href="#" class="block text-dark hover:text-primary">Home</a>
-                <a href="#" class="block text-dark hover:text-primary">Properties</a>
-                <a href="#" class="block text-dark hover:text-primary">Destinations</a>
-                <a href="#" class="block text-dark hover:text-primary">About</a>
                 <a href="#" class="block px-4 py-2 text-center text-white rounded-lg bg-primary hover:bg-opacity-90">Sign In</a>
             </div>
         </nav>

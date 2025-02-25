@@ -51,11 +51,11 @@
                     <span :class="{'text-dark': isScrolled, 'text-white': !isScrolled}" class="text-lg font-medium transition-all duration-300">StayMorocco</span>
                 </div>
                 <div class="items-center hidden space-x-8 md:flex">
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Home</a>
+                    <a href="/home" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Home</a>
                     <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Properties</a>
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Destinations</a>
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">About</a>
-                    <a href="#" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">Sign In</a>
+                    @auth
+                    <a href="/profile" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">{{ Auth::user()->name }}</a>
+                    @endauth
                 </div>
                 <div class="md:hidden">
                     <button @click="mobileMenu = !mobileMenu" :class="{'text-dark': isScrolled, 'text-white': !isScrolled}" class="focus:outline-none">
@@ -68,8 +68,6 @@
             <div x-show="mobileMenu" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="p-6 mt-4 space-y-4 bg-white rounded-lg shadow-lg md:hidden">
                 <a href="#" class="block text-dark hover:text-primary">Home</a>
                 <a href="#" class="block text-dark hover:text-primary">Properties</a>
-                <a href="#" class="block text-dark hover:text-primary">Destinations</a>
-                <a href="#" class="block text-dark hover:text-primary">About</a>
                 <a href="#" class="block px-4 py-2 text-center text-white rounded-lg bg-primary hover:bg-opacity-90">Sign In</a>
             </div>
         </nav>
@@ -94,85 +92,20 @@
     <section class="relative z-30 px-6 py-8 mx-auto -mt-6 max-w-7xl">
         <div class="p-6 bg-white shadow-xl rounded-xl">
             <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                <!-- Search Bar -->
-                <div class="relative flex-grow">
-                    <input type="text" placeholder="Search by property name or keyword" class="w-full p-3 pl-10 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                    <svg class="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
-                <!-- Filter Toggle Button -->
-                <button @click="filters = !filters" class="flex items-center px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                    </svg>
-                    Filters
-                </button>
-            </div>
-
-            <!-- Advanced Filters -->
-            <div x-show="filters" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-4" class="grid grid-cols-1 gap-4 pt-4 mt-4 border-t sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-                <!-- City -->
-                <div class="space-y-2">
-                    <label class="text-xs font-medium text-gray-500">City</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <option>Any City</option>
-                        <option>Casablanca</option>
-                        <option>Marrakech</option>
-                        <option>Rabat</option>
-                        <option>Fes</option>
-                        <option>Tangier</option>
-                    </select>
-                </div>
-
-                <!-- Property Type -->
-                <div class="space-y-2">
-                    <label class="text-xs font-medium text-gray-500">Property Type</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <option>Any Type</option>
-                        <option>Apartment</option>
-                        <option>Villa</option>
-                        <option>Riad</option>
-                        <option>Penthouse</option>
-                    </select>
-                </div>
-
-                <!-- Price Range -->
-                <div class="space-y-2">
-                    <label class="text-xs font-medium text-gray-500">Price Range</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <option>Any Price</option>
-                        <option>$0 - $200</option>
-                        <option>$200 - $400</option>
-                        <option>$400 - $600</option>
-                        <option>$600 - $800</option>
-                        <option>$800+</option>
-                    </select>
-                </div>
-
-                <!-- Beds -->
-                <div class="space-y-2">
-                    <label class="text-xs font-medium text-gray-500">Bedrooms</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <option>Any</option>
-                        <option>1+</option>
-                        <option>2+</option>
-                        <option>3+</option>
-                        <option>4+</option>
-                    </select>
-                </div>
-
-                <!-- Amenities -->
-                <div class="space-y-2">
-                    <label class="text-xs font-medium text-gray-500">Amenities</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
-                        <option>Any Amenities</option>
-                        <option>Pool</option>
-                        <option>Air Conditioning</option>
-                        <option>Wi-Fi</option>
-                        <option>Kitchen</option>
-                    </select>
-                </div>
+                <form action="/Announces" method="GET" class="flex flex-col w-full md:flex-row md:space-x-4">
+                    <div class="relative flex-grow">
+                        <input type="text" name="search" placeholder="Search by property name or keyword" class="w-full p-3 pl-10 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
+                        <svg class="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <button type="submit" class="flex items-center px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                        Search
+                    </button>
+                    <a href="/Announces" class="flex items-center px-4 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-primary">
+                            reset
+                </a>
+                </form>
             </div>
         </div>
     </section>
