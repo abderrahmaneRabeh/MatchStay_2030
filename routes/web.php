@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\TouristeController;
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/Announces/{pagination?}', [AnnounceController::class, 'index'])->name('Announces');
 
 });
 

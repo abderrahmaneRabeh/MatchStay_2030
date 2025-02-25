@@ -57,10 +57,11 @@
                 </div>
                 <div class="items-center hidden space-x-8 md:flex">
                     <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Home</a>
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Properties</a>
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Destinations</a>
-                    <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">About</a>
-                    <a href="#" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">Sign In</a>
+                    <a href="/Announces" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Rental</a>
+
+                    @auth
+                    <a href="/profile" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">{{ Auth::user()->name }}</a>
+                    @endauth
                 </div>
                 <div class="md:hidden">
                     <button @click="mobileMenu = !mobileMenu" :class="{'text-dark': isScrolled, 'text-white': !isScrolled}" class="focus:outline-none">
