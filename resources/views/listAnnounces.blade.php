@@ -113,7 +113,15 @@
     <!-- Results Count & Sort -->
     <section class="container px-6 py-6 mx-auto">
         <div class="flex flex-col items-center justify-between mb-6 md:flex-row">
-            <p class="mb-4 font-medium md:mb-0"><span class="font-bold text-primary">145</span> properties found</p>
+            <div class="flex items-center space-x-4">
+                @if (Auth::user()->role == "proprietaire")
+                <a href="/AddAnnounce" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                    Add new announce
+                </a>
+                @else
+                <p class="text-sm font-medium text-green-600">{{ __('Welcome') }}, {{ Auth::user()->name }}!</p>
+                @endif
+            </div>
             <div class="flex items-center space-x-4">
                 <label class="text-sm">Annonce per page:</label>
                 <select name="paginate" id="paginate" onchange="window.location.href=`/Announces/${this.value}`">
@@ -133,7 +141,11 @@
             <!-- Card 1 -->
             <div class="overflow-hidden transition duration-300 bg-white shadow-sm rounded-xl hover:shadow-lg">
                 <div class="relative">
-                    <img src="{{ $announce->image_url }}">
+                    @if ($announce->image_url)
+                    <img src="{{ $announce->image_url }}" alt="Property Image" class="object-cover w-full h-48">
+                    @else
+                    <img src="https://www.visitmorocco.com/sites/default/files/styles/thumbnail_destination_background_top5/public/thumbnails/image/tour-hassan-rabat-morocco-by-migel.jpg?itok=YP8GLwSi" alt="Property Image" class="object-cover w-full h-48">
+                    @endif
                     <div class="absolute top-3 right-3">
                         <span class="px-2 py-1 text-xs font-medium text-white rounded-md bg-primary">{{ $announce->proprietaire->name }}</span>
                     </div>

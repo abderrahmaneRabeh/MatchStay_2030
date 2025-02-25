@@ -31,6 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // dd($user);
 
         if ($user->role === 'touriste') {
             return redirect()->intended(RouteServiceProvider::PROPRIETAIRE);

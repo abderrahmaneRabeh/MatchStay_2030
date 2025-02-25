@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/Announces/{pagination?}', [AnnounceController::class, 'index'])->name('Announces');
     Route::get('/Announces/details/{id}', [AnnounceController::class, 'details'])->name('AnnounceDetails');
 
+
+    Route::get('/AddAnnounce', [AnnounceController::class, 'create'])->name('AddAnnounce');
+    Route::post('/AddAnnounce', [AnnounceController::class, 'store']);
 });
 
 // Route::get('/test', function () {
