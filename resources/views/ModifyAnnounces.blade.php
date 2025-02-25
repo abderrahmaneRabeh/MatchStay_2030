@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayMorocco - Property Details</title>
+    <title>StayMorocco - Update Announce</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -73,87 +73,71 @@
         </nav>
     </header>
 
-    <!-- Property Details Section -->
+    <!-- Update Announce Form Section -->
     <section class="pt-32 pb-12 bg-gradient-to-r from-primary to-secondary">
         <div class="container px-6 mx-auto">
             <div class="max-w-3xl text-white">
-                <h1 class="mb-4 text-4xl font-bold">{{ $annonce->titre }}</h1>
-                <p class="text-lg opacity-90">{{ $annonce->localisation }}</p>
+                <h1 class="mb-4 text-4xl font-bold">Update Announce</h1>
+                <p class="text-lg opacity-90">Edit the form below to update your property listing.</p>
             </div>
         </div>
     </section>
 
-    <!-- Property Images & Details -->
+    <!-- Form Container -->
     <section class="container px-6 py-12 mx-auto">
-        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <!-- Property Images -->
-            <div class="space-y-4">
-                <div class="overflow-hidden rounded-lg">
-                    <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-96">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="overflow-hidden rounded-lg">
-                        <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-32">
-                    </div>
-                    <div class="overflow-hidden rounded-lg">
-                        <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-32">
-                    </div>
-                </div>
-            </div>
+        <div class="p-8 bg-white rounded-lg shadow-lg">
+            <form action="/ModifyAnnounce" method="POST" class="space-y-6">
+                @csrf <!-- CSRF Token for security -->
 
-            <!-- Property Details -->
-            <div class="space-y-6">
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 class="mb-4 text-2xl font-semibold">Property Details</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4">
-                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                            </svg>
-                            <span class="text-gray-600">{{ $annonce->titre }}</span>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <span class="text-gray-600">{{ $annonce->localisation }}</span>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="text-gray-600">Available to {{ $annonce->disponibilites }}</span>
-                        </div>
-                    </div>
+                <!-- Titre -->
+                <input type="hidden" name="id" value="{{ $annonce->id }}">
+
+                <div>
+                    <label for="titre" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" name="titre" id="titre" required class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->titre }}" placeholder="Enter property title">
                 </div>
 
-                <!-- Property Description -->
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 class="mb-4 text-2xl font-semibold">Description</h2>
-                    <p class="text-gray-600">{{ $annonce->description }}</p>
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea name="description" id="description" rows="4" required class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Enter property description">{{ $annonce->description }}</textarea>
                 </div>
 
-                <!-- Property Amenities -->
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 class="mb-4 text-2xl font-semibold">Amenities</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <?php $equipements = array_filter(explode('@', $annonce->equipements)); ?>
-                        @foreach ($equipements as $equipement)
-                        <div class="flex items-center space-x-2">
-                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <span class="text-gray-600">{{ $equipement }}</span>
-                        </div>
-                        @endforeach
-                    </div>
+                <!-- Localisation -->
+                <div>
+                    <label for="localisation" class="block text-sm font-medium text-gray-700">Location</label>
+                    <input type="text" name="localisation" id="localisation" required class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->localisation }}" placeholder="Enter property location">
                 </div>
 
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <a href="/ModifyAnnounce/{{ $annonce->id }}" class="block w-full px-4 py-2 text-center text-white transition duration-300 rounded-lg bg-primary hover:bg-opacity-90">Modify</a>
+                <!-- Equipements -->
+                <div>
+                    <label for="equipements" class="block text-sm font-medium text-gray-700">Amenities</label>
+                    <input type="text" name="equipements" id="equipements" required class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->equipements }}" placeholder="Enter amenities (separated by commas)">
                 </div>
-            </div>
+
+                <!-- Disponibilites -->
+                <div>
+                    <label for="disponibilites" class="block text-sm font-medium text-gray-700">Availability Date</label>
+                    <input type="date" name="disponibilites" id="disponibilites" required class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->disponibilites }}">
+                </div>
+
+                <!-- Image URL -->
+                <div>
+                    <label for="image_url" class="block text-sm font-medium text-gray-700">Image URL</label>
+                    <input type="url" name="image_url" id="image_url" class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->image_url }}" placeholder="Enter image URL (optional)">
+                </div>
+
+                <!-- Prix -->
+                <div>
+                    <label for="prix" class="block text-sm font-medium text-gray-700">Price per Night</label>
+                    <input type="number" name="prix" id="prix" step="0.01" class="w-full p-3 mt-1 border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none" value="{{ $annonce->prix }}" placeholder="Enter price (optional)">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit" class="w-full px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">Update Announce</button>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -175,3 +159,4 @@
 </body>
 
 </html>
+

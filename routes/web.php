@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/AddAnnounce', [AnnounceController::class, 'create'])->name('AddAnnounce');
     Route::post('/AddAnnounce', [AnnounceController::class, 'store']);
+
+    Route::get('/ModifyAnnounce/{id}', [AnnounceController::class, 'update'])->name('ModifyAnnounce');
+    Route::post('/ModifyAnnounce', [AnnounceController::class, 'edit']);
 });
 
 // Route::get('/test', function () {

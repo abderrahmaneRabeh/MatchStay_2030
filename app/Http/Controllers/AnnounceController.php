@@ -73,4 +73,39 @@ class AnnounceController extends Controller
         }
 
     }
+
+    public function update($id)
+    {
+        $annonce = Annonce::find($id);
+
+        return view('ModifyAnnounces', [
+            'annonce' => $annonce
+        ]);
+    }
+
+    public function edit(Request $request)
+    {
+        $id = $request->input('id');
+        $titre = $request->input('titre');
+        $description = $request->input('description');
+        $localisation = $request->input('localisation');
+        $equipements = $request->input('equipements');
+        $disponibilites = $request->input('disponibilites');
+        $image_url = $request->input('image_url');
+        $prix = $request->input('prix');
+        $user_id = Auth::user()->id;
+
+        $annonce = Annonce::find($id);
+        $annonce->titre = $titre;
+        $annonce->description = $description;
+        $annonce->localisation = $localisation;
+        $annonce->equipements = $equipements;
+        $annonce->disponibilites = $disponibilites;
+        $annonce->image_url = $image_url;
+        $annonce->prix = $prix;
+        $annonce->proprietaire_id = $user_id;
+        $annonce->save();
+
+        return redirect()->route('Announces')->with('success', 'Annonce modifiée avec succès');
+    }
 }
