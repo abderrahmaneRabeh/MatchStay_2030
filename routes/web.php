@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ModifyAnnounce/{id}', [AnnounceController::class, 'update'])->name('ModifyAnnounce');
     Route::post('/ModifyAnnounce', [AnnounceController::class, 'edit']);
+
+    Route::delete('/DeleteAnnounce/{id}', [AnnounceController::class, 'destroy'])->name('DeleteAnnounce');
 });
 
 // Route::get('/test', function () {

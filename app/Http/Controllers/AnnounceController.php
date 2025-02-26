@@ -108,4 +108,16 @@ class AnnounceController extends Controller
 
         return redirect()->route('Announces')->with('success', 'Annonce modifiée avec succès');
     }
+
+    public function destroy($id)
+    {
+        $annonce = Annonce::find($id);
+        $isDeleted = $annonce->delete();
+
+        if (!$isDeleted) {
+            return redirect()->route('Announces')->with('error', 'Une erreur s\'est produite lors de la suppression de l\'annonce');
+        }
+
+        return redirect()->route('Announces')->with('success', 'Annonce supprimée avec succès');
+    }
 }

@@ -35,6 +35,19 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        ::-webkit-scrollbar {
+            width: 0.5em;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: lightgreen;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -153,6 +166,14 @@
                 <div class="p-6 bg-white rounded-lg shadow-lg">
                     <a href="/ModifyAnnounce/{{ $annonce->id }}" class="block w-full px-4 py-2 text-center text-white transition duration-300 rounded-lg bg-primary hover:bg-opacity-90">Modify</a>
                 </div>
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <form action="/DeleteAnnounce/{{ $annonce->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this announcement?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="block w-full px-4 py-2 text-center text-white transition duration-300 bg-red-600 rounded-lg hover:bg-opacity-90">Delete</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </section>
