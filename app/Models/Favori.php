@@ -12,5 +12,4 @@ class Favori extends Model
     protected $table = 'favoris';
     protected $fillable = ['touriste_id', 'annonce_id'];
 
-
 }

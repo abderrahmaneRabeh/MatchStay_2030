@@ -112,6 +112,23 @@
                         <img src="{{ $annonce->image_url }}" alt="Property Image" class="object-cover w-full h-32">
                     </div>
                 </div>
+
+                <!-- Add to Favorites Button -->
+                 @if ($isUserFavorite)
+                 <div class="flex items-center space-x-4">
+                     <a href="/announce/favorite/remove/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                         Remove from Favorites
+                     </a>
+                 </div>
+
+                 @else
+
+                 <div class="flex items-center space-x-4">
+                     <a href="/announce/favorite/add/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </a>
+                </div>
+                @endif
             </div>
 
             <!-- Property Details -->
@@ -163,17 +180,14 @@
                     </div>
                 </div>
 
-                <div class="p-6 bg-white rounded-lg shadow-lg">
-                    <a href="/ModifyAnnounce/{{ $annonce->id }}" class="block w-full px-4 py-2 text-center text-white transition duration-300 rounded-lg bg-primary hover:bg-opacity-90">Modify</a>
-                </div>
-                <div class="p-6 bg-white rounded-lg shadow-lg">
+                <div class="flex justify-between p-6 bg-white rounded-lg shadow-lg">
+                    <a href="/ModifyAnnounce/{{ $annonce->id }}" class="px-4 py-2 text-center text-white transition duration-300 rounded-lg bg-primary hover:bg-opacity-90">Modify</a>
                     <form action="/DeleteAnnounce/{{ $annonce->id }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this announcement?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="block w-full px-4 py-2 text-center text-white transition duration-300 bg-red-600 rounded-lg hover:bg-opacity-90">Delete</button>
+                        <button type="submit" class="px-4 py-2 text-center text-white transition duration-300 bg-red-600 rounded-lg hover:bg-opacity-90">Delete</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </section>

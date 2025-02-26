@@ -57,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/ModifyAnnounce', [AnnounceController::class, 'edit']);
 
     Route::delete('/DeleteAnnounce/{id}', [AnnounceController::class, 'destroy'])->name('DeleteAnnounce');
+
+    Route::get('/announce/favorite/add/{id}', [AnnounceController::class, 'AddFavorite'])->name('AddFavorite');
+    Route::get('/announce/favorite/remove/{id}', [AnnounceController::class, 'RemoveFavorite'])->name('RemoveFavorite');
 });
 
 // Route::get('/test', function () {

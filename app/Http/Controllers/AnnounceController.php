@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,8 +37,13 @@ class AnnounceController extends Controller
     {
         $annonce = Annonce::with('proprietaire')->find($id);
 
+        $isUserFavorite = User::find(Auth::user()->id)
+            ->favoris()->where('annonce_id', $annonce->id)
+            ->exists();
+
         return view('AnnounceDetails', [
-            'annonce' => $annonce
+            'annonce' => $annonce,
+            'isUserFavorite' => $isUserFavorite
         ]);
     }
 
@@ -119,5 +125,23 @@ class AnnounceController extends Controller
         }
 
         return redirect()->route('Announces')->with('success', 'Annonce supprimée avec succès');
+    }
+
+    public function AddFavorite($id)
+    {
+        $userId = Auth::user()->id;
+        $annonce = Annonce::find($id);
+
+        $annonce->touristesFavoris()->attach($userId);
+        return redirect()->back();
+    }
+
+    public function RemoveFavorite($id)
+    {
+        $userId = Auth::user()->id;
+        $annonce = Annonce::find($id);
+
+        $annonce->touristesFavoris()->detach($userId);
+        return redirect()->back();
     }
 }
