@@ -77,7 +77,6 @@ class AnnounceController extends Controller
         if ($announce) {
             return redirect()->route('Announces')->with('success', 'Annonce ajoutée avec succès');
         }
-
     }
 
     public function update($id)
@@ -120,11 +119,17 @@ class AnnounceController extends Controller
         $annonce = Annonce::find($id);
         $isDeleted = $annonce->delete();
 
-        if (!$isDeleted) {
-            return redirect()->route('Announces')->with('error', 'Une erreur s\'est produite lors de la suppression de l\'annonce');
+        if (Auth::user()->role == 'admin') {
+            $redirect = 'dashboard';
+        } else {
+            $redirect = 'Announces';
         }
 
-        return redirect()->route('Announces')->with('success', 'Annonce supprimée avec succès');
+        if (!$isDeleted) {
+            return redirect()->route($redirect)->with('error', 'Une erreur s\'est produite lors de la suppression de l\'annonce');
+        }
+
+        return redirect()->route($redirect)->with('success', 'Annonce supprimée avec succès');
     }
 
     public function AddFavorite($id)

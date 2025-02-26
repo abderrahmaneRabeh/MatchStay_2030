@@ -67,7 +67,19 @@
                     <a href="/home" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Home</a>
                     <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Properties</a>
                     @auth
-                    <a href="/profile" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">{{ Auth::user()->name }}</a>
+                    @if (Auth::user()->role == 'admin')
+                    <a href="{{ route('dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'proprietaire')
+                    <a href="{{ route('proprietaire_dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'touriste')
+                    <a href="{{ route('dashboard_touriste') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @endif
                     @endauth
                 </div>
                 <div class="md:hidden">
@@ -116,8 +128,8 @@
                         Search
                     </button>
                     <a href="/Announces" class="flex items-center px-4 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-primary">
-                            reset
-                </a>
+                        reset
+                    </a>
                 </form>
             </div>
         </div>

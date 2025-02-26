@@ -12,9 +12,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                   @if (Auth::user()->role == 'admin')
+                   <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                   @elseif (Auth::user()->role == 'proprietaire')
+                   <x-nav-link :href="route('proprietaire_dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Proprietaire Dashboard') }}
+                    </x-nav-link>
+                    @elseif (Auth::user()->role == 'touriste')
+                    <x-nav-link :href="route('dashboard_touriste')" :active="request()->routeIs('dashboard')">
+                        {{ __('Touriste Dashboard') }}
+                    </x-nav-link>
+                   @endif
                 </div>
             </div>
 

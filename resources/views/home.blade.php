@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,11 +30,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
-        .float { animation: float 6s ease-in-out infinite; }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
 
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
@@ -56,6 +68,7 @@
         }
     </style>
 </head>
+
 <body class="font-sans bg-light text-dark" x-data="{ mobileMenu: false }">
     <!-- Header -->
     <header class="fixed z-50 w-full transition-all duration-300" x-data="{ isScrolled: false }" @scroll.window="isScrolled = (window.pageYOffset > 20)">
@@ -63,8 +76,8 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="{'text-primary': isScrolled, 'text-white': !isScrolled}"/>
-                        <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="{'text-primary': isScrolled, 'text-white': !isScrolled}"/>
+                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="{'text-primary': isScrolled, 'text-white': !isScrolled}" />
+                        <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :class="{'text-primary': isScrolled, 'text-white': !isScrolled}" />
                     </svg>
                     <span :class="{'text-dark': isScrolled, 'text-white': !isScrolled}" class="text-lg font-medium transition-all duration-300">StayMorocco</span>
                 </div>
@@ -73,7 +86,19 @@
                     <a href="/Announces" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Rental</a>
 
                     @auth
-                    <a href="/profile" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">{{ Auth::user()->name }}</a>
+                    @if (Auth::user()->role == 'admin')
+                    <a href="{{ route('dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'proprietaire')
+                    <a href="{{ route('proprietaire_dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'touriste')
+                    <a href="{{ route('dashboard_touriste') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @endif
                     @endauth
                 </div>
                 <div class="md:hidden">

@@ -82,8 +82,8 @@
             </div>
         </div>
     </section>
-
     <!-- Form Container -->
+
     <section class="container px-6 py-12 mx-auto">
         <div class="p-8 bg-white rounded-lg shadow-lg">
             <form action="/ModifyAnnounce" method="POST" class="space-y-6">
@@ -159,4 +159,3 @@
 </body>
 
 </html>
-

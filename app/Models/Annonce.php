@@ -15,7 +15,9 @@ class Annonce extends Model
         'localisation',
         'equipements',
         'disponibilites',
-        'proprietaire_id'
+        'proprietaire_id',
+        'image_url',
+        'prix'
     ];
 
     public function proprietaire()

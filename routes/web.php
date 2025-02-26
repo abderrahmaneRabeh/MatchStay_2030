@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AnnounceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProprietaireController;
 use App\Http\Controllers\TouristeController;
@@ -24,17 +25,11 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/touriste_dashboard', [TouristeController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard_touriste');
-
-Route::get('/proprietaire_dashboard', action: [ProprietaireController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('proprietaire_dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', action: [DashboardController::class, 'adminDashboard'])->name('dashboard');
+    Route::get('/touriste_dashboard', [DashboardController::class, 'touristeDashboard'])->name('dashboard_touriste');
+    Route::get('/proprietaire_dashboard', [DashboardController::class, 'proprietaireDashboard'])->name('proprietaire_dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

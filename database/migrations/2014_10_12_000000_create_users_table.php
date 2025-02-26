@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
             CREATE TYPE user_role AS ENUM ('admin', 'proprietaire', 'touriste');
             END IF;
             END $$;
-");
+        ");
 
         // Étape 2 : Créer la table `users`
         DB::statement("
