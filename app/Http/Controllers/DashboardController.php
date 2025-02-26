@@ -30,6 +30,7 @@ class DashboardController extends Controller
     {
         $userId = Auth::user()->id;
         $ProprietaireAnnounces = Annonce::where('proprietaire_id', $userId)->simplePaginate(4);
+
         return view('proprietaire_dashboard', [
             'Annonces' => $ProprietaireAnnounces
         ]);
@@ -37,6 +38,11 @@ class DashboardController extends Controller
 
     public function touristeDashboard()
     {
-        return view('touriste_dashboard');
+        $announceFavorites = Annonce::with('touristesFavoris')->whereHas('touristesFavoris', function ($query) {
+            $query->where('touriste_id', Auth::user()->id);
+        })->simplePaginate(4);
+        return view('touriste_dashboard', [
+            'Annonces' => $announceFavorites
+        ]);
     }
 }

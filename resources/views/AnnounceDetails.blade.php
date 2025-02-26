@@ -67,7 +67,19 @@
                     <a href="/home" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Home</a>
                     <a href="#" :class="{'text-dark hover:text-primary': isScrolled, 'text-white hover:text-primary': !isScrolled}" class="text-sm font-medium transition-all duration-300">Properties</a>
                     @auth
-                    <a href="/profile" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">{{ Auth::user()->name }}</a>
+                    @if (Auth::user()->role == 'admin')
+                    <a href="{{ route('dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'proprietaire')
+                    <a href="{{ route('proprietaire_dashboard') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @elseif (Auth::user()->role == 'touriste')
+                    <a href="{{ route('dashboard_touriste') }}" :class="{'bg-primary text-white': isScrolled, 'bg-white text-primary': !isScrolled}" class="px-5 py-2 text-sm font-medium transition-all duration-300 rounded-lg hover:shadow-lg">
+                        {{ Auth::user()->name  }}
+                    </a>
+                    @endif
                     @endauth
                 </div>
                 <div class="md:hidden">
@@ -114,18 +126,20 @@
                 </div>
 
                 <!-- Add to Favorites Button -->
-                 @if ($isUserFavorite)
-                 <div class="flex items-center space-x-4">
-                     <a href="/announce/favorite/remove/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
-                         Remove from Favorites
-                     </a>
-                 </div>
+                @if ($isUserFavorite)
+                <div class="flex items-center space-x-4">
+                    <a href="/announce/favorite/remove/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                        Remove from Favorites
+                    </a>
+                </div>
 
-                 @else
+                @else
 
-                 <div class="flex items-center space-x-4">
-                     <a href="/announce/favorite/add/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
-                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                <div class="flex items-center space-x-4">
+                    <a href="/announce/favorite/add/{{ $annonce->id }}" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-secondary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
                     </a>
                 </div>
                 @endif

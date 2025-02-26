@@ -36,7 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
-
 });
 Route::middleware('auth')->group(function () {
 
@@ -45,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/Announces/details/{id}', [AnnounceController::class, 'details'])->name('AnnounceDetails');
 
 
-    Route::get('/AddAnnounce', [AnnounceController::class, 'create'])->name('AddAnnounce');
+    Route::get('/AddAnnounce', [AnnounceController::class, 'create'])->name('AddAnnounce')->middleware('CheckUserRole:proprietaire');
     Route::post('/AddAnnounce', [AnnounceController::class, 'store']);
 
     Route::get('/ModifyAnnounce/{id}', [AnnounceController::class, 'update'])->name('ModifyAnnounce');

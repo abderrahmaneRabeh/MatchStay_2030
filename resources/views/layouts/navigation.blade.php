@@ -4,27 +4,32 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex items-center shrink-0">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9" />
-                    </a>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('dashboard')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Announces')" :active="request()->routeIs('dashboard')">
+                        {{ __('Announce') }}
+                    </x-nav-link>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                   @if (Auth::user()->role == 'admin')
-                   <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    @if (Auth::user()->role == 'admin')
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                   @elseif (Auth::user()->role == 'proprietaire')
-                   <x-nav-link :href="route('proprietaire_dashboard')" :active="request()->routeIs('dashboard')">
+                    @elseif (Auth::user()->role == 'proprietaire')
+                    <x-nav-link :href="route('proprietaire_dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Proprietaire Dashboard') }}
                     </x-nav-link>
                     @elseif (Auth::user()->role == 'touriste')
                     <x-nav-link :href="route('dashboard_touriste')" :active="request()->routeIs('dashboard')">
                         {{ __('Touriste Dashboard') }}
                     </x-nav-link>
-                   @endif
+                    @endif
                 </div>
             </div>
 
@@ -34,7 +39,7 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
                             @if (Auth::user()->photo != null)
-                                <img src="{{ Auth::user()->photo }}" class="w-8 h-8 mr-2 rounded-full" alt="{{ Auth::user()->name }}">
+                            <img src="{{ Auth::user()->photo }}" class="w-8 h-8 mr-2 rounded-full" alt="{{ Auth::user()->name }}">
                             @endif
                             <div>{{ Auth::user()->name }}</div>
 
@@ -56,7 +61,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -102,7 +107,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

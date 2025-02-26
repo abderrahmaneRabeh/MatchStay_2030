@@ -11,10 +11,8 @@ return new class extends Migration {
      */
     public function up()
     {
-        DB::statement("
-            CREATE TABLE admins (
-            ) INHERITS (users);
-        ");
+        DB::statement("CREATE TABLE admins () INHERITS (users);");
+        DB::statement('ALTER TABLE admins ADD CONSTRAINT admins_id_pkey PRIMARY KEY (id);');
     }
 
     /**

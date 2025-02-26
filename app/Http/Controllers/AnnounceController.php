@@ -14,11 +14,16 @@ class AnnounceController extends Controller
 
         $search = strtolower($request->input('search'));
 
+        $firstdate = $request->input('firstdate');
+        $lastdate = $request->input('lastdate');
+
         if ($search) {
             $announces = Annonce::with('proprietaire')
                 ->whereRaw("LOWER(titre) LIKE ?", ["%$search%"])
                 ->orWhereRaw("LOWER(description) LIKE ?", ["%$search%"])
                 ->orWhereRaw("LOWER(localisation) LIKE ?", ["%$search%"])
+                ->orWhereRaw("LOWER(equipements) LIKE ?", ["%$search%"])
+                ->orWhereRaw("disponibilites BETWEEN ? AND ?", [$firstdate, $lastdate])
                 ->paginate($pagination);
 
             return view('listAnnounces', [
@@ -119,17 +124,17 @@ class AnnounceController extends Controller
         $annonce = Annonce::find($id);
         $isDeleted = $annonce->delete();
 
-        if (Auth::user()->role == 'admin') {
-            $redirect = 'dashboard';
-        } else {
-            $redirect = 'Announces';
-        }
+        // if (Auth::user()->role == 'admin') {
+        //     $redirect = 'dashboard';
+        // } else {
+        //     $redirect = 'Announces';
+        // }
 
-        if (!$isDeleted) {
-            return redirect()->route($redirect)->with('error', 'Une erreur s\'est produite lors de la suppression de l\'annonce');
-        }
+        // if (!$isDeleted) {
+        //     return redirect()->route($redirect)->with('error', 'Une erreur s\'est produite lors de la suppression de l\'annonce');
+        // }
 
-        return redirect()->route($redirect)->with('success', 'Annonce supprimée avec succès');
+        return redirect()->back();
     }
 
     public function AddFavorite($id)

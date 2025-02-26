@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('localisation');
             $table->string('equipements');
             $table->date('disponibilites');
+            $table->string('image_url')->nullable();
+            $table->float('prix');
             $table->unsignedBigInteger('proprietaire_id');
             $table->foreign('proprietaire_id')
                 ->references('id')

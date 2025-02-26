@@ -142,10 +142,10 @@
     <!-- Search Section -->
     <section class="relative z-30 px-6 py-8 mx-auto -mt-16 max-w-7xl">
         <div class="p-6 bg-white shadow-xl rounded-xl">
-            <form class="grid grid-cols-1 gap-4 md:grid-cols-4">
+            <form action="/Announces" method="GET" class="grid grid-cols-1 gap-4 md:grid-cols-4">
                 <div class="space-y-2">
                     <label class="text-xs font-medium text-gray-500">Location</label>
-                    <select class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
+                    <select name="search" class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
                         <option>Any City</option>
                         <option>Casablanca</option>
                         <option>Marrakech</option>
@@ -155,11 +155,11 @@
                 </div>
                 <div class="space-y-2">
                     <label class="text-xs font-medium text-gray-500">Check-in Date</label>
-                    <input type="date" class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
+                    <input type="date" name="firstdate" class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
                 </div>
                 <div class="space-y-2">
                     <label class="text-xs font-medium text-gray-500">Check-out Date</label>
-                    <input type="date" class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
+                    <input type="date" name="lastdate" class="w-full p-3 text-sm border-0 rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary focus:outline-none">
                 </div>
                 <div class="flex items-end">
                     <button class="w-full p-3 text-sm font-medium text-white transition duration-300 rounded-lg bg-primary hover:bg-secondary">Search Properties</button>
