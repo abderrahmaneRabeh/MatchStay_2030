@@ -59,7 +59,6 @@ class RegisteredUserController extends Controller
             ]);
 
             $redirect = RouteServiceProvider::PROPRIETAIRE;
-
         }
 
         event(new Registered($user));

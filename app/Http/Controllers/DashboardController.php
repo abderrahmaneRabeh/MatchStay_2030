@@ -38,9 +38,13 @@ class DashboardController extends Controller
 
     public function touristeDashboard()
     {
-        $announceFavorites = Annonce::with('touristesFavoris')->whereHas('touristesFavoris', function ($query) {
-            $query->where('touriste_id', Auth::user()->id);
-        })->simplePaginate(4);
+        $announceFavorites = Annonce::with('touristesFavoris')
+            ->whereHas('touristesFavoris', function ($query) {
+                $query->where('touriste_id', Auth::user()->id);
+            })
+            ->simplePaginate(4);
+
+
         return view('touriste_dashboard', [
             'Annonces' => $announceFavorites
         ]);
