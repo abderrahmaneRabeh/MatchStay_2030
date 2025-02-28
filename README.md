@@ -1,66 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TouriStay 2030 - Plateforme d'hébergement pour le Mondial 2030
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🌍 Description du projet
 
-## About Laravel
+TouriStay 2030 est une plateforme innovante dédiée à la location d'hébergements pour les visiteurs du Mondial 2030 co-organisé par le Maroc, l'Espagne et le Portugal. Notre solution permet aux propriétaires de publier leurs biens et aux touristes de trouver facilement un logement adapté à leurs besoins pendant cet événement sportif international.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🎯 Objectif
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Faciliter la mise en relation entre propriétaires et touristes dans le cadre du Mondial 2030, en proposant une plateforme sécurisée, intuitive et complète pour la gestion des locations temporaires.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📷 Aperçu du Projet
 
-## Learning Laravel
+Voici un aperçu visuel de notre plateforme TouriStay 2030 :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Page d'accueil](./public/1.png)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+![Recherche d'hébergements](./public/2.png)
+![Détail d'une annonce](./public/3.png)
+![Liste des annonces](./public/4.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Fonctionnalités principales
 
-## Laravel Sponsors
+### 🔐 Authentification et Gestion des Profils
+- Inscription et connexion sécurisées pour tous les utilisateurs
+- Interface personnalisée selon le type d'utilisateur (propriétaire, touriste, administrateur)
+- Modification des informations personnelles et gestion de profil
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🏡 Gestion des Annonces
+- Publication d'annonces détaillées par les propriétaires
+- Indication de la localisation, du prix, des équipements et des disponibilités
+- Modification et suppression des annonces par leurs propriétaires
 
-### Premium Partners
+### 🔍 Recherche et Navigation
+- Recherche avancée par ville et dates de disponibilité
+- Exploration des offres d'hébergement avec pagination dynamique (4, 10, 25 annonces par page)
+- Système de favoris pour sauvegarder les annonces intéressantes
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 👨‍💼 Gestion Administrative
+- Modération des annonces (suppression du contenu inapproprié)
+- Tableau de bord avec statistiques (inscriptions, locations, annonces actives)
+- Surveillance de l'activité de la plateforme
 
-## Contributing
+## 💻 Technologies utilisées
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Backend**: Laravel
+- **Frontend**: HTML, CSS, JavaScript
+- **Base de données**: MySQL
+- **Authentification**: Laravel Breeze/Sanctum
 
-## Code of Conduct
+## 🛠️ Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# Cloner le dépôt
+git clone https://github.com/votre-username/TouriStay-2030.git
 
-## Security Vulnerabilities
+# Accéder au répertoire du projet
+cd TouriStay-2030
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Installer les dépendances
+composer install
+npm install
 
-## License
+# Configurer l'environnement
+cp .env.example .env
+php artisan key:generate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Exécuter les migrations
+php artisan migrate
+
+# Démarrer le serveur
+php artisan serve
