@@ -13,7 +13,6 @@ Faciliter la mise en relation entre propriétaires et touristes dans le cadre du
 Voici un aperçu visuel de notre plateforme TouriStay 2030 :
 
 ![Page d'accueil](./public/1.png)
-
 ![Recherche d'hébergements](./public/2.png)
 ![Détail d'une annonce](./public/3.png)
 ![Liste des annonces](./public/4.png)
