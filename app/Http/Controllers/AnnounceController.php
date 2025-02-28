@@ -68,6 +68,16 @@ class AnnounceController extends Controller
         $prix = $request->input('prix');
         $user_id = Auth::user()->id;
 
+        $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            'localisation' => 'required',
+            'equipements' => 'required',
+            'disponibilites' => 'required',
+            'image_url' => 'required',
+            'prix' => 'required',
+        ]);
+
         $announce = Annonce::create([
             'titre' => $titre,
             'description' => $description,
@@ -104,6 +114,8 @@ class AnnounceController extends Controller
         $image_url = $request->input('image_url');
         $prix = $request->input('prix');
         $user_id = Auth::user()->id;
+
+
 
         $annonce = Annonce::find($id);
         $annonce->titre = $titre;
